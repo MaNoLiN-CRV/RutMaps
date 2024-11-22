@@ -13,6 +13,7 @@
     "@reduxjs/toolkit": "^2.3.0",
     "react": "18.3.1",
     "react-native": "0.76.3",
+    "react-native-maps": "^1.20.1",
     "zustand": "^5.0.1"
   },
   "devDependencies": {
