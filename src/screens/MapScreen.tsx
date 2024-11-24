@@ -1,15 +1,15 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import MapComponent from '../components/MapComponent';
-import useStore from '../hooks/Store';
+import MapComponent from '../components/MapComponent.tsx';
 
 export default function MapScreen() {
-    const { location, setLocation, setZoom } = useStore();
+    
     
     return (
+        
         <View style={styles.container}>
             <View style={styles.mapWrapper}>
-                <MapComponent />
+                <MapComponent/>
             </View>
         </View>
     );

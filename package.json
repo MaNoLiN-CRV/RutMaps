@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@maptiler/leaflet-maptilersdk": "^2.0.0",
+    "@react-native-community/geolocation": "^3.4.0",
     "@react-navigation/native": "^7.0.4",
     "@react-navigation/stack": "^7.0.6",
     "@reduxjs/toolkit": "^2.3.0",

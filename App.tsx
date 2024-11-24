@@ -9,7 +9,7 @@ import MapScreen from './src/screens/MapScreen';
 const Stack = createStackNavigator();
 
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+  const isDarkMode = useColorScheme() === 'light';
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
@@ -32,13 +32,15 @@ function App(): React.JSX.Element {
             cardStyle: { backgroundColor: backgroundStyle.backgroundColor },
           }}
         >
-          <Stack.Screen
-            name="Home"
+          <Stack.Screen 
+            name="Home" 
+            component={HomeScreen}
+            options={{ title: 'Inicio' }}
+          />
+          <Stack.Screen 
+            name="Map" 
             component={MapScreen}
-            options={{ 
-              headerShown: true,
-              title: 'Mapa',
-            }}
+            options={{ title: 'Mapa' }}
           />
         </Stack.Navigator>
       </NavigationContainer>

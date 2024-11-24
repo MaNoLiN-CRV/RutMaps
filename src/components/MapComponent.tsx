@@ -1,15 +1,23 @@
-import React from 'react';
-import { View, StyleSheet, Dimensions, Text } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, StyleSheet, Dimensions, Text, Image } from 'react-native';
 import { LatLng, LeafletView } from 'react-native-leaflet-view';
+import useStore from '../hooks/Store';
 
+export default function MapComponent() {
+  const { location, error, loading, startLocationTracking } = useStore();
+  useEffect(() => {
+    startLocationTracking();
+  }, []);
 
-const location: LatLng = {
-  lat: 37.78825,
-  lng: -122.4324,
-};
-
-
-export default function MapScreen() {
+  if (loading) {
+    return(
+      <Image 
+        source={require('../../assets/loading.gif')}  
+        style={styles.loading}
+    />
+    );
+  }
+ 
   return (
 
       <LeafletView
@@ -21,13 +29,17 @@ export default function MapScreen() {
           },
         ]}
         mapCenterPosition={location}
-        zoom={13}
+        zoom={location.zoom.zoomValue}
+      
+        
       />
 
   );
 }
 
 const styles = StyleSheet.create({
-
+  loading: {
+    justifyContent: 'center',
+  }
  
 });
