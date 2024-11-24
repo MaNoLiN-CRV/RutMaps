@@ -1,11 +1,13 @@
 import { create } from 'zustand';
 import Location from '../entities/Location';
 import Zoom from '../entities/Zoom';
+import { createStackNavigator } from '@react-navigation/stack';
+import { TypedNavigator } from '@react-navigation/native';
 
 type Store = {
   location: Location
-  setLocation: ({latitude,longitude}:Location) => void;
-  setZoom: ({latitudeDelta, longitudeDelta}: Zoom) => void;
+  setLocation: ({lng,lat}:Location) => void;
+  setZoom: ({zoomValue}: Zoom) => void;
 }
 
 /**
@@ -13,26 +15,24 @@ type Store = {
  */
 const useStore = create<Store>((set) => ({
   location: {
-    latitude: 0,
-    longitude: 0,
+    lat: 0,
+    lng: 0,
     zoom: {
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
+      zoomValue : 10
     },
   },
-  setLocation: ({latitude,longitude}:Location) => set((state) => ({
+  setLocation: ({lng,lat}:Location) => set((state) => ({
     location: {
       ...state.location,
-      latitude,
-      longitude,
+      lat,
+      lng,
     },
   })),
-  setZoom: ({latitudeDelta, longitudeDelta}: Zoom) => set((state) => ({
+  setZoom: ({zoomValue}: Zoom) => set((state) => ({
     location: {
       ...state.location,
       zoom: {
-        latitudeDelta,
-        longitudeDelta,
+        zoomValue
       },
     },
   })),

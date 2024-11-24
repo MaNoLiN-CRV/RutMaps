@@ -1,13 +1,13 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator} from '@react-navigation/stack';
+
+import { Text, View } from "react-native";
 import MapScreen from "./MapScreen";
-const Stack = createStackNavigator();
-export default function App() {
+
+
+export default function HomeScreen() {
   return (
-    <NavigationContainer>
-     <Stack.Navigator>
-        <Stack.Screen name="RutMaps" component={MapScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+      <View>
+        <Text>BLOSTE 1</Text>
+        <MapScreen/>
+      </View>
   );
 }

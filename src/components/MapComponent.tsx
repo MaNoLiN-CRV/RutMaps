@@ -1,35 +1,33 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import MapView from 'react-native-maps';
-import Location from '../entities/Location';
-/**
- * 
- * @param param0 Current Location
- * @returns MapComponent
- */
-const MapComponent = ({ latitude, longitude, zoom: { latitudeDelta, longitudeDelta } }: Location) => {
-    return (
-      <View style={styles.container}>
-        <MapView
-          style={styles.map}
-          initialRegion={{
-            latitude,
-            longitude,
-            latitudeDelta,
-            longitudeDelta,
-          }}
-        />
-      </View>
-    );
-  };
+import { View, StyleSheet, Dimensions, Text } from 'react-native';
+import { LatLng, LeafletView } from 'react-native-leaflet-view';
+
+
+const location: LatLng = {
+  lat: 37.78825,
+  lng: -122.4324,
+};
+
+
+export default function MapScreen() {
+  return (
+
+      <LeafletView
+        mapMarkers={[
+          {
+            position: location,
+            icon: '📍',
+            size: [32, 32],
+          },
+        ]}
+        mapCenterPosition={location}
+        zoom={13}
+      />
+
+  );
+}
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  map: {
-    flex: 1,
-  },
-});
 
-export default MapComponent;
+ 
+});
