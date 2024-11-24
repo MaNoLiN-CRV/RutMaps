@@ -5,10 +5,14 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './src/screens/HomeScreen';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import MapScreen from './src/screens/MapScreen';
-
+import perms from './src/misc/Permissions';
 const Stack = createStackNavigator();
 
 function App(): React.JSX.Element {
+  // PERMS //
+  perms();
+  //////////
+  
   const isDarkMode = useColorScheme() === 'light';
 
   const backgroundStyle = {

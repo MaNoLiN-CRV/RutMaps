@@ -21,4 +21,5 @@ const perms = async () => {
         BackHandler.exitApp();
     }
 }
+export default perms;
 
