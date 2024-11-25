@@ -1,20 +1,16 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity,Image } from 'react-native';
 import type { StackNavigationProp } from '@react-navigation/stack';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
 
-// Definir los tipos para la navegación
+
 type RootStackParamList = {
   Home: undefined;
   Map: undefined;
 };
 
-type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
-
 type Props = {
-  navigation: HomeScreenNavigationProp;
+  navigation: StackNavigationProp<RootStackParamList>;
 };
-
 export default function HomeScreen({ navigation }: Props) {
   return (
     <View style={styles.container}>

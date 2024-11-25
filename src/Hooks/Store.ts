@@ -1,59 +1,71 @@
-// src/hooks/Store.ts
 import { create } from 'zustand';
 import Geolocation from '@react-native-community/geolocation';
-import { PermissionsAndroid, Platform } from 'react-native';
 import Location from '../entities/Location';
+import Zoom from '../entities/Zoom';
 
 interface LocationState {
-  location: Location
+  location: Location;
   loading: boolean;
+  zoom: Zoom;
   error: string | null;
+  watchId:  number | null,
   startLocationTracking: () => Promise<void>;
+  stopLocationTracking: () => void; 
   setZoom: (zoom: number) => void;
 }
 
 const useStore = create<LocationState>((set, get) => ({
-
-  location: { lat: 0, lng: 0, zoom: { zoomValue: 10 } },
+  location: { lat: 0, lng: 0 },
   error: null,
-  loading: false,
-
+  loading: true,
+  zoom: { zoomValue: 10 },
+  watchId: null, 
 
   startLocationTracking: async () => {
     try {
-      set({loading:true})
-      Geolocation.watchPosition(
-        (position) => {
-          set((state) => ({
-
-            location: { ...state.location, lat: position.coords.latitude, lng: position.coords.longitude },
+      set({ loading: true });
+      const watchId = Geolocation.watchPosition(
+        ({ coords: { latitude, longitude } }) => {
+          set((state) => 
+            ({
+            ...state,
+            location: { lat: latitude, lng: longitude },
             error: null,
-            loading:false
+            loading: false 
           }));
         },
         (error) => {
-          throw new Error("ERROR")
+          set({
+            error: error.message,
+            loading: false 
+          });
         },
         {
           enableHighAccuracy: true,
-          distanceFilter: 5, // <-- Actualiza cuando te mueves esto
-          interval: 5000,
-          fastestInterval: 2000,
+          distanceFilter: 50,
+          interval: 20000,
+          fastestInterval: 10000,
         }
       );
 
+      set({ watchId });
 
     } catch (error) {
-      set({ error: "ERROR" });
+      set({ error: "ERROR", loading: false });
+    }
+  },
+
+  stopLocationTracking: () => {
+    const { watchId } = get();
+    if (watchId) {
+      Geolocation.clearWatch(watchId);
+      set({ loading: false, watchId: null }); 
     }
   },
 
   setZoom: (zoom: number) => {
-    set((state) => ({
-      location: {
-        ...state.location,
-        zoom: { zoomValue: zoom },
-      }
+    set(() => ({
+      zoom: { zoomValue: zoom }
     }));
   }
 }));

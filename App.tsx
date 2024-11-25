@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { SafeAreaView, StatusBar, StyleSheet, useColorScheme } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -8,11 +8,13 @@ import MapScreen from './src/screens/MapScreen';
 import perms from './src/misc/Permissions';
 const Stack = createStackNavigator();
 
+
+
+
 function App(): React.JSX.Element {
-  // PERMS //
-  perms();
-  //////////
-  
+  useEffect(() => {
+    perms();
+  }, []);
   const isDarkMode = useColorScheme() === 'light';
 
   const backgroundStyle = {
